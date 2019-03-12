@@ -15,7 +15,7 @@ class TransportAppApplication
 class MyController {
     @RequestMapping(value = ["/hello"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun hello(): User {
-        return User(1, "user1")
+        return User(1, "user2")
     }
 }
 
