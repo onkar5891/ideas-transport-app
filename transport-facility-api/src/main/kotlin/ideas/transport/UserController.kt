@@ -30,7 +30,7 @@ class UserController(val service: UserService) {
     fun findById(@PathVariable("userId") userId: Int): User? = service.findById(userId)
 
     @RequestMapping(value = ["/findAll"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun list(): List<User> = service.findAll()
+    fun findAll(): List<User> = service.findAll()
 }
 
 @Service
