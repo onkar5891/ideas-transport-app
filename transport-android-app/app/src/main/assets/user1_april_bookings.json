@@ -1,0 +1,15 @@
+{
+      "user_id" :"1",
+      "monthly_bookings" : [
+        { "day":1, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":2, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":3, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":6, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":7, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":8, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":15, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":18, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":19, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "day":25, "in_time" : "9.30a", "out_time" : "6.30p"}
+      ]
+}
