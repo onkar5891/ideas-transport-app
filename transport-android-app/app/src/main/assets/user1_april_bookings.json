@@ -1,15 +1,12 @@
 {
       "user_id" :"1",
       "monthly_bookings" : [
-        { "day":1, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":2, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":3, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":6, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":7, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":8, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":15, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":18, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":19, "in_time" : "9.30a", "out_time" : "6.30p"},
-        { "day":25, "in_time" : "9.30a", "out_time" : "6.30p"}
+        { "date":1554229800, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "date":1554057000, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "date":1554143400, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "date":1555266600, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "date":1556476200, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "date":1554834600, "in_time" : "9.30a", "out_time" : "6.30p"},
+        { "date":1555698600, "in_time" : "9.30a", "out_time" : "6.30p"}
       ]
 }

@@ -6,7 +6,7 @@ data class Bookings(
 )
 
 data class MonthlyBookings (
-    var day: Int?,
+    var date: Long?,
     var in_time: String?,
     var out_time: String?
 )

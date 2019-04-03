@@ -83,9 +83,15 @@ class MyDayFormatter : DayFormatter {
     override fun format(day: CalendarDay): String  {
         bookings?.let { bookings1 ->
             bookings1.monthly_bookings?.let {
-                it.forEach {
-                    if(it.day == day.day){
-                        return formatter.format(day.date)+"\n${it.in_time} In\n${it.out_time} Out"
+                it.forEach { monthlyBookings ->
+                    monthlyBookings.date?.let {
+                        val date = Date(it * 1000L)
+                        val calender = Calendar.getInstance()
+                        calender.time = date
+                        if(calender.get(Calendar.DAY_OF_MONTH) == day.day &&
+                                calender.get(Calendar.MONTH) == day.month){
+                            return "${formatter.format(day.date)}\n${monthlyBookings.in_time}\n${monthlyBookings.out_time}"
+                        }
                     }
                 }
             }
