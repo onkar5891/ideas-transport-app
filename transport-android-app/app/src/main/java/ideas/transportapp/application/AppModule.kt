@@ -4,6 +4,7 @@ import android.app.Application
 import dagger.Module
 import dagger.Provides
 import ideas.transportapp.repository.BookingsRepository
+import ideas.transportapp.repository.UserRepository
 import javax.inject.Singleton
 
 @Module

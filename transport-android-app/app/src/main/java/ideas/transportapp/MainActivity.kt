@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity(), OnMonthChangedListener {
             viewModel.loadBookings(calenderDay)
         }
     }
-
 }
 
 

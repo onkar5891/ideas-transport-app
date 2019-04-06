@@ -3,4 +3,26 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="iAm">I am a</string>
+    <string name="app_user">User</string>
+    <string name="app_vendor">Vendor</string>
+    <string name="user_registration">User Registration</string>
+    <string name="user_registration_name">Name</string>
+    <string name="user_registration_name_hint">-- name --</string>
+    <string name="user_registration_contact_no">Contact No.</string>
+    <string name="user_registration_contact_no_hint">9812345678</string>
+    <string name="user_registration_alternate_contact_no">Alternate No.</string>
+    <string name="user_registration_alternate_contact_no_hint">9812345679</string>
+    <string name="user_registration_gender">Gender</string>
+    <string name="user_registration_address">Address</string>
+    <string name="user_registration_address_hint">-- residence --</string>
+    <string name="user_registration_pincode">Pin Code</string>
+    <string name="user_registration_pincode_hint">-- postal code --</string>
+    <string name="user_registration_password">Password</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <array name="user_registration_gender_entries">
+        <item>Male</item>
+        <item>Female</item>
+    </array>
 </resources>

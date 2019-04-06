@@ -11,6 +11,6 @@ class TransportApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         application = this
-        applicationComponent = DaggerApplicationComponent.builder().appModule(AppModule(this)).build()
+        applicationComponent = DaggerApplicationComponent.builder().appModule(AppModule(this)).retrofitModule(RetrofitModule()).build()
     }
 }
