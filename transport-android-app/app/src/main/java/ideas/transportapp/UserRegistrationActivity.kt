@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import ideas.transportapp.application.TransportApplication
+import ideas.transportapp.application.isValidContactNumber
+import ideas.transportapp.application.validate
 import ideas.transportapp.model.User
 import ideas.transportapp.repository.UserRepository
 import ideas.transportapp.service.UserServiceImpl
@@ -59,14 +61,28 @@ class UserRegistrationActivity : AppCompatActivity() {
         })
     }
     fun registerUser(view: View) {
-        viewModel.submit(
-            User(
-                userId = 1,
-                name = user_registration_et.text.toString(),
-                contactNo = Integer.parseInt(user_contact_no_et.text.toString()),
-                alternateContactNo = Integer.parseInt(user_alt_contact_no_et.text.toString()),
-                gender = gender_spinner.selectedItem.toString(),
-                address = address_et.text.toString(),
-                pinCode = Integer.parseInt(pincode_et.text.toString())))
+        user_registration_et.validate({s->s.isNotEmpty()}, getString(R.string.user_name_empty_error_message))
+        user_contact_no_et.validate({s -> s.isValidContactNumber(10)}, getString(R.string.user_contact_no_invalid_message))
+        address_et.validate({s -> s.isNotEmpty()}, getString(R.string.user_addres_empty_error_message))
+        pincode_et.validate({s -> s.isNotEmpty()}, getString(R.string.user_pincode_empty_error_message))
+
+        if(user_registration_et.text.toString().isNotEmpty() &&
+            user_contact_no_et.text.toString().isValidContactNumber(10) &&
+            address_et.text.toString().isNotEmpty() &&
+            pincode_et.text.toString().isNotEmpty()){
+
+            viewModel.submit(
+                User(
+                    userId = 1,
+                    name = user_registration_et.text.toString(),
+                    contactNo = user_contact_no_et.text.toString().toBigInteger(),
+                    alternateContactNo = user_alt_contact_no_et.text.toString().toBigInteger(),
+                    gender = gender_spinner.selectedItem.toString(),
+                    address = address_et.text.toString(),
+                    pinCode = Integer.parseInt(pincode_et.text.toString())))
+        }
+    }
+    fun cancel(view: View){
+        finish()
     }
 }

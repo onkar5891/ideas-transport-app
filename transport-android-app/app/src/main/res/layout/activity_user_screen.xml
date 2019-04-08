@@ -176,34 +176,6 @@
                 android:hint="@string/user_registration_pincode_hint"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/password_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/user_reg_horizontal_margin"
-            android:layout_marginRight="@dimen/user_reg_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/pincode_layout">
-        <TextView
-                android:id="@+id/password_tv"
-                android:text="@string/user_registration_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/tv_text_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-        <EditText
-                android:id="@+id/password_et"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberPassword"
-                android:ems="10"
-                android:textSize="@dimen/tv_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:hint="@string/user_registration_pincode_hint"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/button_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -211,7 +183,7 @@
             android:layout_marginRight="@dimen/user_reg_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/password_layout">
+            app:layout_constraintTop_toBottomOf="@+id/address_layout">
 
     <Button
             android:text="@string/submit"
@@ -229,7 +201,8 @@
             android:id="@+id/button2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textSize="@dimen/tv_text_size"/>
+            android:textSize="@dimen/tv_text_size"
+            android:onClick="cancel"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ProgressBar
             android:id="@+id/operation_progress"
