@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "840847984186",
+    "firebase_url": "https://ideastransportapp.firebaseio.com",
+    "project_id": "ideastransportapp",
+    "storage_bucket": "ideastransportapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840847984186:android:d158da8c0ba4a81a",
+        "android_client_info": {
+          "package_name": "ideas.transportapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADYeKBLdUhgpvXyDifcls4aiVyv1LT0SU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840847984186-1t14or7124n4ua7t4jeu1aa57j9kapmv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
