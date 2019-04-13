@@ -73,7 +73,7 @@ class UserRegistrationActivity : AppCompatActivity() {
 
             viewModel.submit(
                 User(
-                    userId = 1,
+                    userId = null,
                     name = user_registration_et.text.toString(),
                     contactNo = user_contact_no_et.text.toString().toBigInteger(),
                     alternateContactNo = user_alt_contact_no_et.text.toString().toBigInteger(),
