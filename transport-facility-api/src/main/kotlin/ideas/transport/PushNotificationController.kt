@@ -1,5 +1,6 @@
 package ideas.transport
 
+import com.google.firebase.messaging.Message
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -8,6 +9,17 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 import java.sql.ResultSet
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.FirebaseApp
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.firebase.FirebaseOptions
+import java.io.FileInputStream
+
+
+
+
+
+
 
 @RestController
 @RequestMapping("/pushNotificationDetails")
@@ -29,13 +41,32 @@ class PushNotificationService(val jdbcTemplate: NamedParameterJdbcTemplate) {
         val saveParameterSource = MapSqlParameterSource(
                 mapOf(Pair("userId", pushNotificationDetails.userId), Pair("notificationId", pushNotificationDetails.notificationId))
         )
-        val pushNotificationDetailsInDb = findByUserId(pushNotificationDetails.userId)
+
+        /*val pushNotificationDetailsInDb = findByUserId(pushNotificationDetails.userId)
 
         if (pushNotificationDetailsInDb != null) {
             jdbcTemplate.update(UPDATE_PUSH_NOTIFICATION_QUERY, saveParameterSource)
         } else {
             jdbcTemplate.update(INSERT_PUSH_NOTIFICATION_QUERY, saveParameterSource)
-        }
+        }*/
+
+        val serviceAccount = FileInputStream("C:/TusharM/transportApp/serviceAccountKey.json")
+
+        val options = FirebaseOptions.Builder()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setDatabaseUrl("https://ideastransportapp.firebaseio.com")
+                .build()
+
+        FirebaseApp.initializeApp(options)
+
+        val token = pushNotificationDetails.notificationId
+        val message = Message.builder()
+                .putData("score", "850")
+                .putData("time", "2:45")
+                .setToken(token)
+                .build()
+        val response = FirebaseMessaging.getInstance().send(message)
+        println(response)
     }
 
     fun findByUserId(userId: Int): PushNotificationDetails? {
@@ -58,7 +89,7 @@ class PushNotificationService(val jdbcTemplate: NamedParameterJdbcTemplate) {
 }
 
 data class PushNotificationDetails(
-        val pushNotificationDetailsId: Int,
+        val pushNotificationDetailsId: Int?,
         val userId: Int,
         val notificationId: String
 )

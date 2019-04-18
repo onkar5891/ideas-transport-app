@@ -21,7 +21,7 @@ class PickupDropController(val service: PickupDropService) {
         service.createPickupDropDetailsForUser(pickupDropList)
     }
 
-    @RequestMapping(value = ["/fetch/{userId}/{month}/{year}"], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/fetch/{userId}/{month}/{year}"], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE], method = [RequestMethod.GET])
     fun fetchPickupDropDetailsForUser(@PathVariable userId: Int, @PathVariable month: Month, @PathVariable year: Int): List<PickupDropDetails> {
         return service.fetchPickupDropDetailsForUser(userId, month, year)
     }

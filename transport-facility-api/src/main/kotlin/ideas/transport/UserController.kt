@@ -98,8 +98,8 @@ class UserService(val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) {
         User(
                 rs.getInt("user_id"),
                 rs.getString("name"),
-                rs.getInt("contact_no"),
-                rs.getInt("alternate_contact_no"),
+                rs.getString("contact_no"),
+                rs.getString("alternate_contact_no"),
                 rs.getString("gender"),
                 rs.getString("address"),
                 rs.getInt("pincode")
@@ -110,8 +110,8 @@ class UserService(val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) {
 data class User(
         var userId: Int?,
         var name: String,
-        var contactNo: Int,
-        var alternateContactNo: Int?,
+        var contactNo: String,
+        var alternateContactNo: String?,
         var gender: String,
         var address: String,
         var pinCode: Int
