@@ -11,7 +11,7 @@ import javax.inject.Singleton
 class RetrofitModule {
     @Provides
     @Singleton
-    fun provideHttpUrl(): HttpUrl? = HttpUrl.parse("http://192.168.2.37:4101")
+    fun provideHttpUrl(): HttpUrl? = HttpUrl.parse("http://192.168.1.201:4101")
 
     @Provides
     fun provideUserApi(httpUrl: HttpUrl?): UserApi = UserApi.build(httpUrl = httpUrl)

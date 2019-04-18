@@ -22,9 +22,10 @@
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
     <string name="user_name_empty_error_message">User name can not be empty</string>
-    <string name="user_contact_no_invalid_message">User\'s contact number can not be empty</string>
+    <string name="user_contact_no_invalid_message">User\'s contact number can not be empty and should be of length 10.</string>
     <string name="user_addres_empty_error_message">User\'s address is mandatory field.</string>
     <string name="user_pincode_empty_error_message">User\'s pincode is mandatory</string>
+    <string name="fcm_message">New message has arrived</string>
     <array name="user_registration_gender_entries">
         <item>Male</item>
         <item>Female</item>

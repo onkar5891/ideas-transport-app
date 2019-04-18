@@ -2,6 +2,7 @@ package ideas.transportapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -10,6 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import ideas.transportapp.application.TransportApplication
 import ideas.transportapp.application.isValidContactNumber
 import ideas.transportapp.application.validate
@@ -22,9 +25,13 @@ import kotlinx.android.synthetic.main.activity_user_screen.*
 import javax.inject.Inject
 
 class UserRegistrationActivity : AppCompatActivity() {
-    lateinit var viewModel: UserRegistrationViewModel
+    val TAG = "Ideas App"
+
+    private lateinit var viewModel: UserRegistrationViewModel
     @Inject
     lateinit var userRepository: UserRepository
+
+    lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +56,19 @@ class UserRegistrationActivity : AppCompatActivity() {
                 }
                 OperationState.LOADED -> {
                     operation_progress.visibility = View.GONE
-                    window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                    startActivity(Intent(this, MainActivity::class.java))
                 }
             }
             it?.msg?.let { errorMessage ->
                 window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 operation_progress.visibility = View.GONE
                 Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            }
+        })
+
+        viewModel.userLiveData.observe(this, Observer {
+            it?.let { user ->
+                this@UserRegistrationActivity.user = user
+                cloudMessagingRegistration()
             }
         })
     }
@@ -75,8 +87,8 @@ class UserRegistrationActivity : AppCompatActivity() {
                 User(
                     userId = null,
                     name = user_registration_et.text.toString(),
-                    contactNo = user_contact_no_et.text.toString().toBigInteger(),
-                    alternateContactNo = user_alt_contact_no_et.text.toString().toBigInteger(),
+                    contactNo = user_contact_no_et.text.toString(),
+                    alternateContactNo = user_alt_contact_no_et.text.toString(),
                     gender = gender_spinner.selectedItem.toString(),
                     address = address_et.text.toString(),
                     pinCode = Integer.parseInt(pincode_et.text.toString())))
@@ -84,5 +96,23 @@ class UserRegistrationActivity : AppCompatActivity() {
     }
     fun cancel(view: View){
         finish()
+    }
+    private fun cloudMessagingRegistration(){
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Get new Instance ID token
+                val token = task.result?.token
+
+                // Log and toast
+                Log.d(TAG, token)
+                user.userId?.let { token?.let { it1 -> viewModel.submitInstanceId(it, it1) } }
+                window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                startActivity(Intent(this, MainActivity::class.java))
+            })
     }
 }

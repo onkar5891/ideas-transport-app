@@ -1,6 +1,7 @@
 package ideas.transportapp.cloud
 
 import android.util.Log
+import ideas.transportapp.model.PushNotificationDetails
 import ideas.transportapp.model.User
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -15,6 +16,9 @@ import java.util.concurrent.Executors
 interface UserApi {
     @POST("/user/save")
     fun register(@Body user: User): Call<User>
+
+    @POST("/pushNotificationDetails/save")
+    fun registerPushNotificationID(@Body pushNotificationDetails: PushNotificationDetails): Call<PushNotificationDetails>
 
     companion object {
         fun build(httpUrl: HttpUrl?):UserApi{

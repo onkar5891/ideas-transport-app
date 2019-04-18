@@ -13,6 +13,8 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.FirebaseApp
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseOptions
+import com.google.firebase.messaging.Notification
+import org.springframework.beans.factory.annotation.Autowired
 import java.io.FileInputStream
 
 
@@ -24,9 +26,13 @@ import java.io.FileInputStream
 @RestController
 @RequestMapping("/pushNotificationDetails")
 class PushNotificationController(val service: PushNotificationService) {
-    @RequestMapping(value = ["/save"], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE], method = [RequestMethod.POST])
-    fun savePushNotificationDetails(@RequestBody pushNotificationDetails: PushNotificationDetails) {
-        service.save(pushNotificationDetails)
+
+    @RequestMapping(value = ["/save"],
+            consumes = [MediaType.APPLICATION_JSON_VALUE],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+            method = [RequestMethod.POST])
+    fun savePushNotificationDetails(@RequestBody pushNotificationDetails: PushNotificationDetails): PushNotificationDetails? {
+        return service.save(pushNotificationDetails)
     }
 
     @RequestMapping(value = ["/find/{userId}"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -36,8 +42,9 @@ class PushNotificationController(val service: PushNotificationService) {
 }
 
 @Service
-class PushNotificationService(val jdbcTemplate: NamedParameterJdbcTemplate) {
-    fun save(pushNotificationDetails: PushNotificationDetails) {
+class PushNotificationService(val jdbcTemplate: NamedParameterJdbcTemplate, val firebaseMessaging: FirebaseMessaging) {
+
+    fun save(pushNotificationDetails: PushNotificationDetails): PushNotificationDetails? {
         val saveParameterSource = MapSqlParameterSource(
                 mapOf(Pair("userId", pushNotificationDetails.userId), Pair("notificationId", pushNotificationDetails.notificationId))
         )
@@ -50,23 +57,16 @@ class PushNotificationService(val jdbcTemplate: NamedParameterJdbcTemplate) {
             jdbcTemplate.update(INSERT_PUSH_NOTIFICATION_QUERY, saveParameterSource)
         }*/
 
-        val serviceAccount = FileInputStream("C:/TusharM/transportApp/serviceAccountKey.json")
-
-        val options = FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://ideastransportapp.firebaseio.com")
-                .build()
-
-        FirebaseApp.initializeApp(options)
 
         val token = pushNotificationDetails.notificationId
+        val notification = Notification("Hi", "Your device is registered!!")
         val message = Message.builder()
-                .putData("score", "850")
-                .putData("time", "2:45")
+                .setNotification(notification)
                 .setToken(token)
                 .build()
-        val response = FirebaseMessaging.getInstance().send(message)
+        val response = firebaseMessaging.send(message)
         println(response)
+        return pushNotificationDetails
     }
 
     fun findByUserId(userId: Int): PushNotificationDetails? {
