@@ -1,26 +1,14 @@
 package ideas.transport
 
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.Message
-import org.springframework.http.HttpStatus
+import com.google.firebase.messaging.Notification
 import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 import java.sql.ResultSet
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.FirebaseApp
-import com.google.auth.oauth2.GoogleCredentials
-import com.google.firebase.FirebaseOptions
-import com.google.firebase.messaging.Notification
-import org.springframework.beans.factory.annotation.Autowired
-import java.io.FileInputStream
-
-
-
-
-
 
 
 @RestController
@@ -49,17 +37,17 @@ class PushNotificationService(val jdbcTemplate: NamedParameterJdbcTemplate, val 
                 mapOf(Pair("userId", pushNotificationDetails.userId), Pair("notificationId", pushNotificationDetails.notificationId))
         )
 
-        /*val pushNotificationDetailsInDb = findByUserId(pushNotificationDetails.userId)
+        val pushNotificationDetailsInDb = findByUserId(pushNotificationDetails.userId)
 
         if (pushNotificationDetailsInDb != null) {
             jdbcTemplate.update(UPDATE_PUSH_NOTIFICATION_QUERY, saveParameterSource)
         } else {
             jdbcTemplate.update(INSERT_PUSH_NOTIFICATION_QUERY, saveParameterSource)
-        }*/
+        }
 
 
         val token = pushNotificationDetails.notificationId
-        val notification = Notification("Hi", "Your device is registered!!")
+        val notification = Notification("Hi", "Your registration request is accepted!!")
         val message = Message.builder()
                 .setNotification(notification)
                 .setToken(token)
