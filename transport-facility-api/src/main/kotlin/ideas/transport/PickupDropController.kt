@@ -45,7 +45,7 @@ class PickupDropService(val jdbcTemplate: NamedParameterJdbcTemplate) {
     }
 
     fun fetchPickupDropDetailsForUser(userId: Int, month: Month, year: Int): List<PickupDropDetails> {
-        val monthOfYear = "$year-${String.format("%02d", month.value)}%"
+        val monthOfYear = "$year-${month.twoDigitMonthNumber()}%"
 
         val parameterSource = MapSqlParameterSource(
                 mapOf(Pair("userId", userId), Pair("monthOfYear", monthOfYear))
